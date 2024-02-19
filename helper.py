@@ -73,6 +73,8 @@ class PrimeiraTela(tk.Frame):
                     pa.moveTo(capturar)
                     pa.sleep(0.4)
                     pa.click(capturar, button='left')
+                    pa.sleep(2.0)
+                    pa.press('right', presses=3)
                     
                     # Aguarde um intervalo antes de verificar novamente
                     time.sleep(0.5)
