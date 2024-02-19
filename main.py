@@ -23,6 +23,26 @@ def cura():
     pa.sleep(0.5)
     handler_poke.next()
 
+def capturar_pokemon():
+    try:
+        # Tente localizar a imagem na região especificada
+        capturar = pa.locateOnScreen('capturar1.png', confidence=0.8)
+        
+        if capturar is not None:
+            print("Pokemon Encontrado")
+            pa.press('j')
+            pa.moveTo(capturar)
+            pa.sleep(0.4)
+            pa.click(capturar, button='left')
+            
+            # Aguarde um intervalo antes de verificar novamente
+            pa.sleep(0.8)
+        else:
+            print("Nenhum Pokemon Encontrado")
+            pa.sleep(0.8)       
+    except pa.ImageNotFoundException:
+                print("Nenhum Pokemon Encontrado")
+                pa.sleep(0.8)
 
 def key_code(key):
 
@@ -59,8 +79,12 @@ def key_code(key):
     #curar
     if hasattr(key, 'char') and key.char == 'm':
         cura()
+
+    #capturar
+    if hasattr(key, 'char') and key.char == 'v':
+        capturar_pokemon()
     
-with Listener(on_press=key_code) as f:
+with Listener(on_release=key_code) as f:
     f.join()
 
 
