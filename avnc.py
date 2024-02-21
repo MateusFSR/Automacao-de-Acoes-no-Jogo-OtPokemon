@@ -1,3 +1,9 @@
+import tkinter as tk
+from threading import Thread
+import pyautogui as pa
+import time
+import keyboard
+
 class PokemonBotApp:
     def __init__(self, root):
         self.root = root
@@ -75,6 +81,7 @@ class PokemonBotApp:
                 time.sleep(0.5)
 
     def verificar_mudanca_imagem(self):
+        self.poke_list_attack = ('f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8')
         while self.running_verificar:
             try:                     
                 battle = pa.locateOnScreen('battle.png', confidence=0.8, region=self.capturar_tela)
@@ -85,24 +92,24 @@ class PokemonBotApp:
                     print("Pokemon Encontrado")
                     pa.click(self.battle_position, button='left')
                     pa.sleep(0.2)
-                    pa.press(poke_list_attack, interval=0.1)
+                    pa.press(self.poke_list_attack, interval=0.1)
                     pa.sleep(0.3)
                     pa.sleep(0.7)
                     pa.click(self.battle_position, button='left')
                     pa.sleep(0.2)
-                    pa.press(poke_list_attack, interval=0.1)
+                    pa.press(self.poke_list_attack, interval=0.1)
                     pa.sleep(0.5)
                     time.sleep(0.5)
             except pa.ImageNotFoundException:
                 print("Pokemon Encontrado")
                 pa.click(self.battle_position, button='left')
                 pa.sleep(0.2)
-                pa.press(poke_list_attack, interval=0.1)
+                pa.press(self.poke_list_attack, interval=0.1)
                 pa.sleep(0.3)
                 pa.sleep(0.7)
                 pa.click(self.battle_position, button='left')
                 pa.sleep(0.2)
-                pa.press(poke_list_attack, interval=0.1)
+                pa.press(self.poke_list_attack, interval=0.1)
                 pa.sleep(0.5)
                 time.sleep(0.5)
 
@@ -151,7 +158,7 @@ class PokemonBotApp:
 
     def capturar_battle(self):
         keyboard.wait('h')
-        self.btela = pa.locateOnScreen('battle.png', confidence=0.7)
+        self.btela = pa.locateOnScreen('battle.png', confidence=0.6)
         self.left = self.btela.left
         self.top = self.btela.top
         self.width = self.btela.width
