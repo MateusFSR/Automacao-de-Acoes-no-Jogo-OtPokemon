@@ -3,6 +3,10 @@ from threading import Thread
 import pyautogui as pa
 import time
 import keyboard
+from HandlerPoke import HandlerPoke
+
+#regiaop = (1248, 432, 191, 124)
+handler_poke = HandlerPoke()
 
 class PokemonBotApp:
     def __init__(self, root):
@@ -11,6 +15,7 @@ class PokemonBotApp:
         largura_janela = 350
         altura_janela = 120
         self.root.geometry(f"{largura_janela}x{altura_janela}")
+        self.root.iconbitmap('pokeball.ico')
 
         # Configuração para manter a janela no topo
         self.root.attributes('-topmost', True)           
@@ -84,7 +89,7 @@ class PokemonBotApp:
         self.poke_list_attack = ('f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8')
         while self.running_verificar:
             try:                     
-                battle = pa.locateOnScreen('battle.png', confidence=0.8, region=self.capturar_tela)
+                battle = pa.locateOnScreen('battle.png', confidence=0.6, region=self.capturar_tela)
                 if battle is not None:
                         print("Sem Pokemons para batalha")
                         time.sleep(0.5)
@@ -94,6 +99,7 @@ class PokemonBotApp:
                     pa.sleep(0.2)
                     pa.press(self.poke_list_attack, interval=0.1)
                     pa.sleep(0.3)
+                    handler_poke.next()
                     pa.sleep(0.7)
                     pa.click(self.battle_position, button='left')
                     pa.sleep(0.2)
@@ -101,11 +107,12 @@ class PokemonBotApp:
                     pa.sleep(0.5)
                     time.sleep(0.5)
             except pa.ImageNotFoundException:
-                print("Pokemon Encontrado")
+                print("Pokemon Encontrado NF")
                 pa.click(self.battle_position, button='left')
                 pa.sleep(0.2)
                 pa.press(self.poke_list_attack, interval=0.1)
                 pa.sleep(0.3)
+                handler_poke.next()
                 pa.sleep(0.7)
                 pa.click(self.battle_position, button='left')
                 pa.sleep(0.2)
